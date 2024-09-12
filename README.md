@@ -1,2 +1,2 @@
-# PEMR_MOBILE
+# MOBILE DEVELOPMENT
 Repository Mata Kuliah Pemrograman Mobile
