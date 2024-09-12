@@ -36,6 +36,8 @@ void main() {
 }
 ```
 
+![alt text](image-3.png)
+
 jadi saya modifikasi menggunakan nama saya sendiri dan didalam perulangannya juga modifikasi seperti kode program diatas berikut adalah hasil ouputnya
 ![alt text](image-2.png)
 
@@ -77,3 +79,32 @@ Operator adalah metode khusus dalam kelas, termasuk operator matematika seperti 
 Buatlah slide yang berisi penjelasan dan contoh eksekusi kode tentang perbedaan Null Safety dan Late variabel ! (Khusus soal ini kelompok berupa link google slide)
 
 Kumpulkan jawaban Anda di spreadsheet pada tautan yang telah disediakan di grup telegram. Untuk soal nomor 1 sampai 3 push repo GitHub Anda.
+
+contoh nullsafety
+
+```dart
+// Sebelum Null Safety, variabel bisa diisi dengan nilai null secara tidak aman
+void main() {
+  int angka = null; // Error karena integer tidak boleh null
+  print(angka);
+}
+
+// Setelah Null Safety, kita bisa menggunakan 'int?' untuk mengizinkan null pada variabel integer
+void main() {
+  int? angka; // angka sekarang bisa bernilai null
+  print(angka); // Output: null
+}
+
+```
+
+contoh late string
+
+```dart
+void main() {
+  late String nama; // Deklarasi tanpa inisialisasi
+
+  // Inisialisasi dilakukan sebelum digunakan
+  nama = "Faza Najwa Reza Arif";
+  print(nama); // Output: Faza Najwa Reza Arif
+}
+```
