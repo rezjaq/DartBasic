@@ -436,7 +436,7 @@ jawaban : Functions dalam dart adalah sebuah blok kode yang akan dijalankan keti
 
 - Named Parameter
 
-  Dapat menjadi required atau opsional
+  parameter yang diidentifikasi berdasarkan nama saat memanggil fungsi dan juga Named parameters bisa dibuat required atau optional.
 
   ```dart
   void enableFlags({bool? bold, bool? hidden}) {
@@ -448,148 +448,161 @@ jawaban : Functions dalam dart adalah sebuah blok kode yang akan dijalankan keti
     // Memanggil fungsi dengan menggunakan named parameters
     enableFlags(bold: true, hidden: false);
   }
+
+  // Jika parameter perlu dijadikan required, bisa menggunakan required keyword:
+  void enableFlags({required bool bold, required bool hidden}) {
+  print('Bold: $bold');
+  print('Hidden: $hidden');
+  }
   ```
 
 * Optional Positional Parameter
 
-parameter fungsi yang dapat diabaikan saat pemanggilan fungsi dan diidentifikasi berdasarkan posisi argument yang diberikan, memungkinkan fleksibilitas dalam memberikan argumen sesuai kebutuhan.
+  parameter fungsi yang dapat diabaikan saat pemanggilan fungsi dan diidentifikasi berdasarkan posisi argument yang diberikan, memungkinkan fleksibilitas dalam memberikan argumen sesuai kebutuhan.
 
-```dart
-void printDetails(String name, [int age, String country]) {
-  print('Name: $name');
-  if (age != null) {
-    print('Age: $age');
+  ```dart
+  void printDetails(String name, [int age, String country]) {
+    print('Name: $name');
+    if (age != null) {
+      print('Age: $age');
+    }
+    if (country != null) {
+      print('Country: $country');
+    }
   }
-  if (country != null) {
-    print('Country: $country');
-  }
-}
 
-void main() {
-  // Memanggil fungsi dengan argument sesuai posisi
-  printDetails('John');
-  printDetails('Jane', 30);
-  printDetails('Doe', 25, 'USA');
-}
-```
+  void main() {
+    // Memanggil fungsi dengan argument sesuai posisi
+    printDetails('Rizqi');
+    printDetails('Reza', 20);
+    printDetails('Danuarta', 21, 'INA');
+  }
+  ```
 
 4. Jelaskan maksud Functions sebagai first-class objects beserta contoh sintaknya!
 
-jawaban : First-class dianggap sebagai entitas yang dapat diperlakukan dengan cara yang sama seperti entitas lain dalam bahasa pemrograman, sehingga memungkinkan kita untuk memperlakukan fungsi seperti variabel, seperti menggunakan fungsi sebagai argumen untuk parameter ketika memanggil fungsi.
+   jawaban : fungsi dapat diperlakukan seperti objek lain seperti disimpan dalam variabel, dijadikan argumen untuk fungsi lain, atau dijadikan nilai return.
 
-contoh :
+   contoh :
 
-```dart
+   ```dart
+   void greet(String name) {
+    print('Hello, $name!');
+    }
 
-int add(int x, int y) {
-  return x + y;
-}
+    void main() {
+      // Menyimpan fungsi dalam variabel
+      var sayHello = greet;
 
-int launchOperation(Function operation, int x, int y) {
-  return operation(x, y);
-}
+      // Memanggil fungsi melalui variabel
+      sayHello('Reza');  // Output: Hello, Reza
+    }
+    Function createMultiplier(int multiplier) {
+      return (int x) => x * multiplier;
+    }
 
-void main(){
-int hasil = launchOperation(tambah, 5, 3);
+    void main() {
+      var doubleIt = createMultiplier(2);
+      print(doubleIt(5));  // Output: 10
+    }
 
-print(hasil);  // Output: 8
-}
-```
+   ```
 
 5. Apa itu Anonymous Functions? Jelaskan dan berikan contohnya!
 
-jawaban : fungsi anonim dalam Dart adalah fungsi yang tidak memiliki nama dan dapat didefinisikan dan digunakan tanpa perlu mendeklarasikan namanya.
+   jawaban : fungsi anonim dalam Dart adalah fungsi yang tidak memiliki nama dan dapat didefinisikan dan digunakan tanpa perlu mendeklarasikan namanya.
 
-```dart
-void launchOperation(int x, int y, Function operate) {
- int result = operate(x, y);
- print("Result: $result");
-}
+   ```dart
+   void main() {
+      List<int> numbers = [1, 2, 3, 4, 5];
 
-void main() {
+      // Menggunakan anonymous function dalam metode `forEach`
+      numbers.forEach((number) {
+        print(number * 2);  // Mencetak dua kali lipat dari setiap angka
+      });
+    }
 
- launchOperation(5, 3, (a, b) {
-   return a + b;
- });
-}
-```
+   ```
 
 6. Jelaskan perbedaan Lexical scope dan Lexical closures! Berikan contohnya!
 
-jawaban : Lexical scope adalah konsep di mana akses ke variabel dalam suatu fungsi ditentukan oleh struktur penulisan kode pada waktu kompilasi, sementara lexical closures adalah kemampuan sebuah fungsi untuk "mengingat" lingkungan (variabel lokal, parameter, dan fungsi lain) di sekitarnya bahkan setelah fungsi tersebut selesai dieksekusi.
+   jawaban : konsep di mana akses ke variabel ditentukan oleh lokasi di mana variabel tersebut dideklarasikan dalam kode sumber. Sementara lexical closures adalah kemampuan sebuah fungsi untuk "mengingat" lingkungan (variabel lokal, parameter, dan fungsi lain) di sekitarnya bahkan setelah fungsi tersebut selesai dieksekusi.
 
-```dart
-// Contoh Lexical Scope
+   ```dart
+   // Contoh Lexical Scope
 
-void main() {
-  int x = 10;
+   void main() {
+     int x = 10;
 
-  void printValue() {
-    print(x); // Memiliki akses ke variabel x karena berada dalam lexical scope
-  }
+     void printValue() {
+       print(x); // Memiliki akses ke variabel x karena berada dalam lexical scope
+     }
 
-  printValue(); // Memanggil fungsi printValue
-}
-// Contoh Lexical Closure
+     printValue(); // Memanggil fungsi printValue
+   }
+   // Contoh Lexical Closure
 
-Function createAdder(int x) {
-  return (int y) => x + y; // Menciptakan closure yang mengingat nilai x
-}
+   Function createAdder(int x) {
+     return (int y) => x + y; // Menciptakan closure yang mengingat nilai x
+   }
 
-void main() {
-  int base = 5;
-  var adder = createAdder(base);
+   void main() {
+     int base = 5;
+     var adder = createAdder(base);
 
-  print(adder(10)); // Output: 15 (base + 10)
-}
-```
+     print(adder(10)); // Output: 15 (base + 10)
+   }
+   ```
 
 7. Jelaskan dengan contoh cara membuat return multiple value di Functions!
 
-jawaban : mengembalikan multiple values menggunakan tipe data seperti List, Map, atau custom class.
+   jawaban : mengembalikan multiple values menggunakan tipe data seperti List, Map, atau custom class.
 
-```dart
-// Menggunakan List
+   ```dart
+   // Menggunakan List
+   List<int> getNumbers() {
+      return [1, 2];  // Mengembalikan list dengan dua nilai
+    }
 
-List<int> calculate(int a, int b) {
-  int sum = a + b;
-  int difference = a - b;
-  return [sum, difference];
-}
+    void main() {
+      List<int> numbers = getNumbers();
+      print('First number: ${numbers[0]}');  // Output: First number: 1
+      print('Second number: ${numbers[1]}'); // Output: Second number: 2
+    }
 
-void main() {
-  List<int> result = calculate(10, 5);
-  print('Sum: ${result[0]}, Difference: ${result[1]}');
-}
-// Menggunakan Map
+   // Menggunakan Map
+   Map<String, int> getScores() {
+      return {'math': 90, 'science': 85};  // Mengembalikan map dengan nama kunci dan nilai
+    }
 
-Map<String, int> calculate(int a, int b) {
-  int sum = a + b;
-  int difference = a - b;
-  return {'sum': sum, 'difference': difference};
-}
+    void main() {
+      Map<String, int> scores = getScores();
+      print('Math score: ${scores['math']}');   // Output: Math score: 90
+      print('Science score: ${scores['science']}'); // Output: Science score: 85
+    }
 
-void main() {
-  Map<String, int> result = calculate(10, 5);
-  print('Sum: ${result['sum']}, Difference: ${result['difference']}');
-}
-// Menggunakan Custom Classs
 
-class CalculationResult {
-  int sum;
-  int difference;
+   // Menggunakan Custom Classs
+   class Person {
+      String name;
+      int age;
 
-  CalculationResult(this.sum, this.difference);
-}
+      Person(this.name, this.age);  // Konstruktor untuk menginisialisasi nilai
+    }
 
-CalculationResult calculate(int a, int b) {
-  int sum = a + b;
-  int difference = a - b;
-  return CalculationResult(sum, difference);
-}
+    Person getPerson() {
+      return Person('Reza', 20);  // Mengembalikan objek Person dengan nama dan usia
+    }
 
-void main() {
-  CalculationResult result = calculate(10, 5);
-  print('Sum: ${result.sum}, Difference: ${result.difference}');
-}
-```
+    void main() {
+      Person person = getPerson();
+      print('Name: ${person.name}'); // Output: Name: Reza
+      print('Age: ${person.age}');   // Output: Age: 20
+    }
+   ```
+
+   Kesimpulan:
+
+   - List: Mengembalikan nilai dalam urutan tertentu, tidak memberikan nama untuk setiap nilai.
+   - Map: Mengembalikan nilai dengan nama deskriptif, memudahkan akses berdasarkan nama kunci.
+   - Custom Class: Menyediakan cara yang lebih terstruktur untuk mengelompokkan beberapa nilai, mendukung fungsionalitas tambahan jika diperlukan.
